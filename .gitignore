@@ -11,6 +11,9 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+# Google Sheets to Unity access token is be irrelevant with commit
+/[Aa]ssets/Google Sheets to Unity/Resources/GSTU_Config.asset
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
