@@ -6,12 +6,12 @@ using System.Linq;
 using UnityEngine;
 
 public class DialogueManager : MonoBehaviour {
-    private const string sheetId = "18hK1P7opofnWgJ2b-qN56rskCKwLVknXNBc2SNzJxaM";
-    private const string workSheetName = "Dialogue";
+    private const string SHEET_ID = "18hK1P7opofnWgJ2b-qN56rskCKwLVknXNBc2SNzJxaM";
+    private const string WORK_SHEET_NAME = "Dialogue";
 
     public Action<List<Dialogue>> onDialogueLoaded;
 
-    void Start() {
+    private void Start() {
         onDialogueLoaded = (dialogues) => {
             foreach (var dialogue in dialogues) {
                 var str = $"({dialogue.dialogueId}, {dialogue.comment})\n";
@@ -26,24 +26,24 @@ public class DialogueManager : MonoBehaviour {
         ReadSpreadSheet();
     }
     
-    void ReadSpreadSheet() {
-        SpreadsheetManager.Read(new GSTU_Search(sheetId, workSheetName), HandleSpreadSheetRead);
+    private void ReadSpreadSheet() {
+        SpreadsheetManager.Read(new GSTU_Search(SHEET_ID, WORK_SHEET_NAME), HandleSpreadSheetRead);
     }
     
-    void HandleSpreadSheetRead(GstuSpreadSheet sheet) {
+    private void HandleSpreadSheetRead(GstuSpreadSheet sheet) {
         var dialogues = new List<Dialogue>();
 
-        var lastReadDialogue = null as Dialogue;
+        Dialogue lastReadDialogue = null;
         foreach (var row in sheet.rows.primaryDictionary) {
             var values = row.Value;
-            if (values.Find(v => v.value.Equals(Constants.SpreadSheetKey.DialogueId)) != null)
+            if (values.Find(v => v.value.Equals(Constants.SpreadSheetKey.DIALOGUE_ID)) != null)
                 continue;
 
-            var dialogueID = values.Find(v => v.columnId.Equals(Constants.SpreadSheetKey.DialogueId))?.value;
-            var comment = values.Find(v => v.columnId.Equals(Constants.SpreadSheetKey.Comment))?.value;
-            var npcName = values.Find(v => v.columnId.Equals(Constants.SpreadSheetKey.Name))?.value;
-            var dialogueIndex = values.Find(v => v.columnId.Equals(Constants.SpreadSheetKey.Index))?.value.ToInt() ?? -1;
-            var dialogueText = values.Find(v => v.columnId.Equals(Constants.SpreadSheetKey.Dialogue))?.value;
+            var dialogueID = values.Find(v => v.columnId.Equals(Constants.SpreadSheetKey.DIALOGUE_ID))?.value;
+            var comment = values.Find(v => v.columnId.Equals(Constants.SpreadSheetKey.COMMENT))?.value;
+            var npcName = values.Find(v => v.columnId.Equals(Constants.SpreadSheetKey.NAME))?.value;
+            var dialogueIndex = values.Find(v => v.columnId.Equals(Constants.SpreadSheetKey.INDEX))?.value.ToInt() ?? -1;
+            var dialogueText = values.Find(v => v.columnId.Equals(Constants.SpreadSheetKey.DIALOGUE))?.value;
             
             var dialogueInfo = new DialogueInfo();
             dialogueInfo.name = npcName;
@@ -58,8 +58,7 @@ public class DialogueManager : MonoBehaviour {
                 dialogue.dialogueInfos.Add(dialogueInfo);
                 
                 dialogues.Add(dialogue);
-            }
-            else if (lastReadDialogue != null) {
+            } else if (lastReadDialogue != null) {
                 lastReadDialogue.dialogueInfos.Add(dialogueInfo);
             }
         }

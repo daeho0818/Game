@@ -7,7 +7,7 @@ using System;
 public class Dialogue {
     public string dialogueId;
     public string comment;
-    public List<DialogueInfo> dialogueInfos = new List<DialogueInfo> ();
+    public List<DialogueInfo> dialogueInfos = new List<DialogueInfo>();
 
 }
 

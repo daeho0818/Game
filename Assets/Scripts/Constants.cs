@@ -6,16 +6,10 @@ using UnityEngine;
 
 public static class Constants {
     public static class SpreadSheetKey {
-        public readonly static string DialogueId = "Dialogue ID";
-        public readonly static string Comment = "Comment";
-        public readonly static string Name = "NPC Name";
-        public readonly static string Index = "Index";
-        public readonly static string Dialogue = "Dialogue Text";
-    }
-
-    public static int ToInt(this object obj, int _default = -1) {
-        int ret = _default;
-        int.TryParse(obj.ToString(), out ret);
-        return ret;
+        public static readonly string DIALOGUE_ID = "Dialogue ID";
+        public static readonly string COMMENT = "Comment";
+        public static readonly string NAME = "NPC Name";
+        public static readonly string INDEX = "Index";
+        public static readonly string DIALOGUE = "Dialogue Text";
     }
 }
